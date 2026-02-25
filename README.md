@@ -1,6 +1,6 @@
 <h1 align="center"><a href="#">&#x200B;</a>✨Egor Ilin✨</h1>
 <h3 align="center"><a href="#">&#x200B;</a>Fullstack developer</h3>
-<center>
+<div align="center">
 <a href="mailto:skeetch2010@gmail.com">
   <img src="https://img.shields.io/badge/Email-1f1f1f?style=for-the-badge&logo=gmail&logoColor=white" />
 </a>
@@ -10,7 +10,7 @@
 <a href="https://www.linkedin.com/in/jefrry">
   <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
 </a>
-</center>
+</div>
 
 <p align="center">
   <img alt="GitHub followers" src="https://img.shields.io/github/followers/jefrry?labelColor=1f1f1f&logo=github&color=green">
