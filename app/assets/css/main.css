@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ocean: #1a1e39;
+  --color-ink: #f1f2fa;
+  --color-muted: #a4abc2;
+  --color-accent: #8aafff;
+  --color-cyan: #6be0df;
+  --color-line: #363b56;
+  --font-sans: 'Manrope', 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  html { @apply scroll-smooth scroll-pt-9; color-scheme: dark; }
+  body { @apply m-0 bg-ocean font-sans text-ink antialiased leading-relaxed; isolation: isolate; }
+  a { @apply transition-colors hover:text-accent; }
+  :focus-visible { @apply outline-2 outline-offset-4 outline-cyan; }
+  summary { @apply cursor-pointer; }
+  section, footer { @apply scroll-mt-9; }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-[calc(100%-40px)] max-w-[1160px] md:w-[calc(100%-112px)]; }
+}
+
+/* Fixed decoration leaves the document's geometry unchanged. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('/assets/stars.svg') repeat;
+  background-size: 1280px 900px;
+}
+
+.whale { animation: float 9s ease-in-out infinite; }
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-13px) rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
