@@ -6,6 +6,7 @@ interface Translation {
   navigation: string;
   about: string;
   experience: string;
+  projects: string;
   contacts: string;
   language: string;
   skip: string;
@@ -29,6 +30,7 @@ export const TRANSLATIONS: Record<Language, Translation> = {
     navigation: 'Основная навигация',
     about: 'Обо мне',
     experience: 'Опыт работы',
+    projects: 'Проекты',
     contacts: 'Контакты',
     language: 'Язык',
     skip: 'К содержимому',
@@ -50,6 +52,7 @@ export const TRANSLATIONS: Record<Language, Translation> = {
     navigation: 'Main navigation',
     about: 'About me',
     experience: 'Work experience',
+    projects: 'Projects',
     contacts: 'Contacts',
     language: 'Language',
     skip: 'Skip to content',

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const { profile, text, language, explicitLanguage } = useLanguage();
-const homePath = computed(() => explicitLanguage.value ? languagePath('/', language.value) : '/');
+const { profile, text, homePath } = useLanguage();
 </script>
 
 <template>
