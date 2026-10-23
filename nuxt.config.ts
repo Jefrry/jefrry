@@ -7,12 +7,11 @@ export default defineNuxtConfig({
   vite: { plugins: [tailwindcss()] },
   typescript: { strict: true },
   experimental: { prerenderErrorPages: [404] },
+  nitro: { prerender: { routes: ['/', '/ru/', '/en/'] } },
   app: {
     head: {
       htmlAttrs: { lang: 'ru' },
-      title: 'Егор Ильин — Fullstack разработчик',
       meta: [
-        { name: 'description', content: 'Егор Ильин — Fullstack разработчик. Создаю веб-приложения на React, Vue, Go и Node.js. Опыт, навыки и контакты.' },
         { name: 'theme-color', content: '#1a1e39' },
       ],
       link: [{ rel: 'icon', href: '/assets/whale.png' }],

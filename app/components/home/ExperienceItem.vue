@@ -2,6 +2,7 @@
 import type { ExperienceItemProps } from '~/types/experience';
 
 defineProps<ExperienceItemProps>();
+const { text } = useLanguage();
 </script>
 
 <template>
@@ -13,12 +14,12 @@ defineProps<ExperienceItemProps>();
 
       <p class="mt-2 max-w-[695px] text-xs leading-relaxed text-muted">{{ experience.summary }}</p>
 
-      <ul aria-label="Технологии" class="mt-3.5 flex flex-wrap gap-2">
+      <ul :aria-label="text.technologies" class="mt-3.5 flex flex-wrap gap-2">
         <li v-for="technology in experience.tech" :key="technology" class="rounded border border-[#3b425e] px-2 py-0.5 text-[10px] text-[#abb6d3]">{{ technology }}</li>
       </ul>
 
       <details class="mt-3 text-xs leading-loose text-muted">
-        <summary class="w-fit text-[11px] text-[#abbadd]">Результаты и полный стек<span class="sr-only"> — {{ experience.company }}</span></summary>
+        <summary class="w-fit text-[11px] text-[#abbadd]">{{ text.results }}<span class="sr-only"> — {{ experience.company }}</span></summary>
 
         <ul class="my-3 list-disc space-y-1.5 pl-4">
           <li v-for="result in experience.more" :key="result">{{ result }}</li>
@@ -26,19 +27,19 @@ defineProps<ExperienceItemProps>();
 
         <dl class="space-y-1 text-[11px]">
           <div>
-            <dt class="inline font-medium text-[#c2cce3]">Активно работал: </dt>
+            <dt class="inline font-medium text-[#c2cce3]">{{ text.active }}</dt>
 
             <dd class="inline">{{ experience.active }}</dd>
           </div>
 
           <div>
-            <dt class="inline font-medium text-[#c2cce3]">Работал реже: </dt>
+            <dt class="inline font-medium text-[#c2cce3]">{{ text.rare }}</dt>
 
             <dd class="inline">{{ experience.rare }}</dd>
           </div>
 
           <div>
-            <dt class="inline font-medium text-[#c2cce3]">Также было на проекте: </dt>
+            <dt class="inline font-medium text-[#c2cce3]">{{ text.used }}</dt>
 
             <dd class="inline">{{ experience.used }}</dd>
           </div>

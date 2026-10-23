@@ -1,4 +1,5 @@
 import type { Experience } from '~/types/experience';
+import type { Language } from '~/types/language';
 
 export const EXPERIENCES: readonly Experience[] = [
   {
@@ -111,3 +112,63 @@ export const EXPERIENCES: readonly Experience[] = [
     "used": "C#, .NET"
   }
 ];
+
+const ENGLISH_EXPERIENCES: Record<string, Pick<Experience, 'date' | 'summary' | 'more'>> = {
+  NDA: {
+    date: 'April 2026',
+    summary: 'Automated banking system. A unified DSL for MongoDB and PostgreSQL, and TOTP-based two-factor authentication.',
+    more: [
+      'Developed a unified filtering language for two database types.',
+      'Improved application security by implementing TOTP authentication.',
+    ],
+  },
+  Teseract: {
+    date: 'May 2023 — July 2025',
+    summary: 'Two React applications built from scratch, the Retell.media AI platform and news website automation. FSD architecture, microfrontends and mentoring.',
+    more: [
+      'Built two React client applications from scratch. The projects attracted over 1,000 customers and investors.',
+      'Implemented in-app and email notifications in Go, increasing user engagement by 20%.',
+      'Developed user billing history on the frontend and backend.',
+      'Combined two frontend applications under one domain using microfrontends.',
+      'Designed FSD architecture, mentored developers and broke down tasks. Delivery estimate accuracy increased by 30%.',
+      'Optimized builds and CI/CD, reducing build and execution time by 50%.',
+    ],
+  },
+  'Aitu-dala': {
+    date: 'May 2022 — April 2023',
+    summary: 'B2B recommendation widgets and an analytics dashboard. API optimization, A/B testing and serving as acting team lead.',
+    more: [
+      'Expanded widget configuration and user interaction monitoring.',
+      'Served as acting team lead; the number of integrations increased by 40%.',
+      'Optimized API usage through caching and fewer requests, reducing load time by 30%.',
+      'Introduced A/B testing, increasing widget CTR by 50%.',
+    ],
+  },
+  CMTT: {
+    date: 'October 2021 — March 2022',
+    summary: 'Development of Osnova: vc.ru, TJournal and DTF. Subsites, authentication and migrating legacy PHP code to Vue.',
+    more: [
+      'Expanded the subsites section for vc.ru, TJournal and DTF.',
+      'Contributed to migrating legacy PHP code to Vue.',
+      'Implemented user deletion and improved authentication. Support requests decreased by 20%.',
+    ],
+  },
+  'Hybrid AI': {
+    date: 'February 2018 — September 2021',
+    summary: 'Neural network training tools, custom CMS and CRM systems. Over 50 interactive HTML5/Canvas banners for an advertising platform.',
+    more: [
+      'Created a content sorting and categorization application for neural network training, used by over 50 ML specialists.',
+      'Developed recursive tables in Vue, speeding up users’ work by 25%.',
+      'Created over 50 interactive HTML5/Canvas banners in JavaScript for an SSP platform.',
+      'Worked on an advertising moderation CMS, a document workflow CRM and the hybrid.ai landing page.',
+    ],
+  },
+};
+
+export const LOCALIZED_EXPERIENCES: Record<Language, readonly Experience[]> = {
+  ru: EXPERIENCES,
+  en: EXPERIENCES.map(experience => ({
+    ...experience,
+    ...ENGLISH_EXPERIENCES[experience.company],
+  })),
+};
