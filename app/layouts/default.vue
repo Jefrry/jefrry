@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Header from '~/components/Header.vue';
-import Footer from '~/components/Footer.vue';
+import Header from '~/components/site/Header.vue';
+import Footer from '~/components/site/Footer.vue';
 
 const { text } = useLanguage();
 </script>

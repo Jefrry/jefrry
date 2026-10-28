@@ -1,4 +1,4 @@
-import type { Language } from '~/types/language';
+import type { Language } from '~/types/language/language';
 
 interface Translation {
   title: string;
@@ -7,6 +7,7 @@ interface Translation {
   about: string;
   experience: string;
   projects: string;
+  articles: string;
   contacts: string;
   language: string;
   skip: string;
@@ -31,6 +32,7 @@ export const TRANSLATIONS: Record<Language, Translation> = {
     about: 'Обо мне',
     experience: 'Опыт работы',
     projects: 'Проекты',
+    articles: 'Статьи',
     contacts: 'Контакты',
     language: 'Язык',
     skip: 'К содержимому',
@@ -53,6 +55,7 @@ export const TRANSLATIONS: Record<Language, Translation> = {
     about: 'About me',
     experience: 'Work experience',
     projects: 'Projects',
+    articles: 'Articles',
     contacts: 'Contacts',
     language: 'Language',
     skip: 'Skip to content',

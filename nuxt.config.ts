@@ -1,5 +1,5 @@
 import tailwindcss from '@tailwindcss/vite';
-import { PROJECTS } from './app/constants/projects';
+import { getPublishedPages } from './app/constants/site/publishedPages';
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-22',
@@ -7,13 +7,9 @@ export default defineNuxtConfig({
   css: ['@fontsource/manrope/400.css', '@fontsource/manrope/500.css', '@fontsource/manrope/600.css', '~/assets/css/main.css'],
   vite: { plugins: [tailwindcss()] },
   typescript: { strict: true },
-  imports: { dirs: ['composable'] },
+  imports: { dirs: ['composable/**', 'utils/**'] },
   experimental: { prerenderErrorPages: [404] },
-  nitro: { prerender: { routes: ['/', ...['ru', 'en'].flatMap(language => [
-    `/${language}/`,
-    `/${language}/projects/`,
-    ...PROJECTS.map(project => `/${language}/projects/${project.id}/`),
-  ])] } },
+  nitro: { prerender: { routes: getPublishedPages() } },
   app: {
     head: {
       htmlAttrs: { lang: 'ru' },

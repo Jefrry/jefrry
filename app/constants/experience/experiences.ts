@@ -1,5 +1,5 @@
-import type { Experience } from '~/types/experience';
-import type { Language } from '~/types/language';
+import type { Experience } from '~/types/experience/experience';
+import type { Language } from '~/types/language/language';
 
 export const EXPERIENCES: readonly Experience[] = [
   {

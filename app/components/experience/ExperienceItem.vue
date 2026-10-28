@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ExperienceItemProps } from '~/types/experience';
+import type { ExperienceItemProps } from '~/types/experience/experience';
 
 defineProps<ExperienceItemProps>();
 const { text } = useLanguage();

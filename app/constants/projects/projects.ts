@@ -1,4 +1,4 @@
-import type { PortfolioProject } from '../types/project';
+import type { PortfolioProject } from '../../types/projects/project';
 
 // One record supplies both language versions, cards, details and generated routes.
 export const PROJECTS: PortfolioProject[] = [

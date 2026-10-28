@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import WhaleVisual from './WhaleVisual.vue';
+import WhaleVisual from '../site/WhaleVisual.vue';
 
 const { profile, text } = useLanguage();
 </script>

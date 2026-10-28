@@ -1,5 +1,5 @@
-import type { Profile } from '~/types/profile';
-import type { Language } from '~/types/language';
+import type { Profile } from '~/types/profile/profile';
+import type { Language } from '~/types/language/language';
 
 export const PROFILE = {
   name: 'Егор Ильин',

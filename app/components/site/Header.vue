@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { language, rootLanguage, explicitLanguage, text, languages, homePath, projectsPath } = useLanguage();
+const { language, rootLanguage, explicitLanguage, text, languages, homePath, projectsPath, articlesPath } = useLanguage();
 </script>
 
 <template>
@@ -10,6 +10,8 @@ const { language, rootLanguage, explicitLanguage, text, languages, homePath, pro
       <a :href="`${homePath}#experience`">{{ text.experience }}</a>
 
       <NuxtLink :to="projectsPath">{{ text.projects }}</NuxtLink>
+
+      <NuxtLink v-if="articlesPath" :to="articlesPath">{{ text.articles }}</NuxtLink>
 
       <a :href="`${homePath}#contacts`">{{ text.contacts }}</a>
     </nav>

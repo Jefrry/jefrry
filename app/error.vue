@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ErrorPageProps } from '~/types/error';
+import type { ErrorPageProps } from '~/types/site/error';
 
 const props = defineProps<ErrorPageProps>();
 

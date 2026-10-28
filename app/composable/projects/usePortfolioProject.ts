@@ -1,7 +1,7 @@
 import type { RouteLocationNormalized } from 'vue-router';
-import { PROJECTS } from '~/constants/projects';
-import { PROJECT_TEXT } from '~/constants/projectTranslations';
-import { validateLanguageRoute } from './useLanguage';
+import { PROJECTS } from '~/constants/projects/projects';
+import { PROJECT_TEXT } from '~/constants/projects/projectTranslations';
+import { validateLanguageRoute } from '../language/useLanguage';
 
 export function validateProjectRoute(route: RouteLocationNormalized) {
   return validateLanguageRoute(route) && PROJECTS.some(project => project.id === route.params.id);

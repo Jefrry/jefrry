@@ -1,5 +1,5 @@
-import { PROJECTS } from '~/constants/projects';
-import { PROJECT_TEXT } from '~/constants/projectTranslations';
+import { PROJECTS } from '~/constants/projects/projects';
+import { PROJECT_TEXT } from '~/constants/projects/projectTranslations';
 
 export function useProjectCatalog() {
   const route = useRoute();
