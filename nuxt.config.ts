@@ -1,5 +1,8 @@
 import tailwindcss from '@tailwindcss/vite';
 import { getPublishedPages } from './app/constants/site/publishedPages';
+import { ARTICLE_ROUTES } from './app/constants/articles/articleRoutes';
+
+const publishedPages = getPublishedPages(ARTICLE_ROUTES);
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-22',
@@ -9,7 +12,13 @@ export default defineNuxtConfig({
   typescript: { strict: true },
   imports: { dirs: ['composable/**', 'utils/**'] },
   experimental: { prerenderErrorPages: [404] },
-  nitro: { prerender: { routes: getPublishedPages() } },
+  hooks: {
+    'pages:extend'(pages) {
+      pages.push(...ARTICLE_ROUTES);
+    },
+  },
+  runtimeConfig: { publishedPages },
+  nitro: { prerender: { routes: [...publishedPages, '/sitemap.xml', '/robots.txt'] } },
   app: {
     head: {
       htmlAttrs: { lang: 'ru' },

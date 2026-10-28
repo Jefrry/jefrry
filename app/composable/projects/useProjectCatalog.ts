@@ -24,9 +24,9 @@ export function useProjectCatalog() {
     return router.replace({ query: {}, hash: route.hash });
   }
 
-  useHead(() => ({
+  usePageMetadata(() => ({
     title: `${text.value.title} — ${profile.value.name}`,
-    meta: [{ name: 'description', content: text.value.intro }],
+    description: text.value.intro,
   }));
 
   return { text, categories, category, projects, selectCategory, resetFilters };

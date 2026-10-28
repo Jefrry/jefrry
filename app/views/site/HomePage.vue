@@ -2,6 +2,9 @@
 import HeroSection from '~/components/profile/HeroSection.vue';
 import ExperienceSection from '~/components/experience/ExperienceSection.vue';
 import SkillsSection from '~/components/profile/SkillsSection.vue';
+
+const { text } = useLanguage();
+usePageMetadata(() => ({ title: text.value.title, description: text.value.description }));
 </script>
 
 <template>

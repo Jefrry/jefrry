@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import { ARTICLES } from '~/constants/articles/articles';
+
+definePageMeta({
+  validate: route => ARTICLES.some(article => article.id === route.params.id),
+});
+
 const { article, text, articlesPath } = useArticle();
 </script>
 

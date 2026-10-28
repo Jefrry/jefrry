@@ -15,9 +15,10 @@ export function usePortfolioProject() {
   const text = computed(() => PROJECT_TEXT[language.value]);
   const catalogLink = computed(() => ({ path: `/${language.value}/projects/`, query: route.query }));
 
-  useHead(() => ({
-    title: content.value?.title,
-    meta: [{ name: 'description', content: content.value?.summary ?? '' }],
+  usePageMetadata(() => ({
+    title: content.value?.title ?? '',
+    description: content.value?.summary ?? '',
+    image: project.value?.cover,
   }));
 
   return { project, content, text, catalogLink };

@@ -15,7 +15,7 @@ export interface PortfolioProject {
   id: string;
   category: ProjectCategory;
   technologies: string[];
-  cover: string;
+  cover?: string;
   externalUrl?: string;
   content: Record<Language, ProjectContent>;
 }

@@ -1,5 +1,5 @@
 export function useSite() {
-  const { rootLanguage, language, text } = useLanguage();
+  const { rootLanguage, language } = useLanguage();
 
   onMounted(() => {
     rootLanguage.value = /^ru(?:-|$)/i.test(navigator.language) ? 'ru' : 'en';
@@ -7,7 +7,5 @@ export function useSite() {
 
   useHead(() => ({
     htmlAttrs: { lang: language.value },
-    title: text.value.title,
-    meta: [{ name: 'description', content: text.value.description }],
   }));
 }

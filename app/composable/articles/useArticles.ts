@@ -18,9 +18,9 @@ export function useArticles() {
 
 export function useArticleCatalog() {
   const catalog = useArticles();
-  useHead(() => ({
+  usePageMetadata(() => ({
     title: `${catalog.text.value.title} — ${catalog.profile.value.name}`,
-    meta: [{ name: 'description', content: catalog.text.value.intro }],
+    description: catalog.text.value.intro,
   }));
   return catalog;
 }
@@ -29,9 +29,10 @@ export function useArticle() {
   const route = useRoute();
   const { articles, text, articlesPath } = useArticles();
   const article = computed(() => articles.value.find(article => article.id === route.params.id));
-  useHead(() => ({
-    title: article.value?.content.title,
-    meta: [{ name: 'description', content: article.value?.content.description ?? '' }],
+  usePageMetadata(() => ({
+    title: article.value?.content.title ?? '',
+    description: article.value?.content.description ?? '',
+    type: 'article',
   }));
   return { article, text, articlesPath };
 }
