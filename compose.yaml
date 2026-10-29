@@ -2,7 +2,7 @@ name: jefrry-portfolio
 
 services:
   site:
-    image: ${SITE_IMAGE:-jefrry-portfolio:local}
+    image: ${IMAGE_REF:-${SITE_IMAGE:-jefrry-portfolio:local}}
     build:
       context: .
     restart: unless-stopped

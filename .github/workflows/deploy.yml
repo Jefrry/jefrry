@@ -1,0 +1,188 @@
+name: Deploy production
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Full SHA reachable from main (empty means current main)
+        required: false
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
+jobs:
+  verify-main:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    permissions:
+      contents: read
+    outputs:
+      release_sha: ${{ steps.release.outputs.sha }}
+    steps:
+      - name: Require the main branch
+        env:
+          DISPATCHED_REF: ${{ github.ref }}
+        run: test "$DISPATCHED_REF" = refs/heads/main
+      - name: Check out main
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Resolve release commit
+        id: release
+        env:
+          REQUESTED_COMMIT: ${{ inputs.commit }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha=${REQUESTED_COMMIT:-$(git rev-parse HEAD)}
+          [[ $sha =~ ^[a-f0-9]{40}$ ]]
+          git cat-file -e "$sha^{commit}"
+          git merge-base --is-ancestor "$sha" refs/remotes/origin/main
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+  checks:
+    needs: verify-main
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ci.yml
+    with:
+      release_sha: ${{ needs.verify-main.outputs.release_sha }}
+
+  build:
+    needs: [verify-main, checks]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
+      image: ${{ steps.image.outputs.name }}
+      release_sha: ${{ needs.verify-main.outputs.release_sha }}
+    steps:
+      - name: Check out release commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.verify-main.outputs.release_sha }}
+          persist-credentials: false
+      - name: Resolve image name
+        id: image
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: echo "name=ghcr.io/${REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - name: Log in to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and publish image
+        id: build
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.image.outputs.name }}:${{ needs.verify-main.outputs.release_sha }}
+          labels: org.opencontainers.image.revision=${{ needs.verify-main.outputs.release_sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: production
+    permissions:
+      contents: read
+      packages: read
+    env:
+      VPS_HOST: ${{ secrets.VPS_HOST }}
+      VPS_PORT: ${{ secrets.VPS_PORT }}
+      VPS_USER: ${{ secrets.VPS_USER }}
+      SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
+      SSH_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+      GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GHCR_USER: ${{ github.actor }}
+      IMAGE_REF: ${{ needs.build.outputs.image }}@${{ needs.build.outputs.digest }}
+      RELEASE_SHA: ${{ needs.build.outputs.release_sha }}
+    steps:
+      - name: Check out deployment files
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.build.outputs.release_sha }}
+          persist-credentials: false
+      - name: Upload files and deploy exact image digest
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ $VPS_HOST =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]*$ ]]
+          [[ $VPS_USER =~ ^[a-z_][a-z0-9_-]*$ ]]
+          [[ $VPS_PORT =~ ^[0-9]{1,5}$ ]]
+          [[ $GHCR_USER =~ ^[a-zA-Z0-9_-]+(\[bot\])?$ ]]
+          [[ $IMAGE_REF =~ ^ghcr\.io/[a-z0-9._/-]+@sha256:[a-f0-9]{64}$ ]]
+          [[ $RELEASE_SHA =~ ^[a-f0-9]{40}$ ]]
+          [[ -n $SSH_PRIVATE_KEY && -n $SSH_KNOWN_HOSTS ]]
+          umask 077
+          ssh_dir=$(mktemp -d)
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$ssh_dir/key"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$ssh_dir/known_hosts"
+          opts=(-i "$ssh_dir/key" -o "UserKnownHostsFile=$ssh_dir/known_hosts" \
+            -o StrictHostKeyChecking=yes -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=15)
+          release="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          stage="apps/jefrry/releases/$release"
+          auth="$stage/.docker"
+          target="$VPS_USER@$VPS_HOST"
+          cleanup() {
+            ssh "${opts[@]}" -p "$VPS_PORT" "$target" \
+              "docker --config '$auth' logout ghcr.io >/dev/null 2>&1; rm -rf '$auth'" >/dev/null 2>&1 || true
+            rm -rf "$ssh_dir"
+          }
+          trap cleanup EXIT
+          ssh "${opts[@]}" -p "$VPS_PORT" "$target" "mkdir -p '$auth' && chmod 700 '$auth'"
+          printf 'IMAGE_REF=%s\nRELEASE_SHA=%s\n' "$IMAGE_REF" "$RELEASE_SHA" > "$ssh_dir/release.env"
+          scp "${opts[@]}" -P "$VPS_PORT" compose.yaml "$target:$stage/compose.yaml"
+          scp "${opts[@]}" -P "$VPS_PORT" "$ssh_dir/release.env" "$target:$stage/release.env"
+          printf '%s' "$GHCR_TOKEN" | ssh "${opts[@]}" -p "$VPS_PORT" "$target" \
+            "docker --config '$auth' login ghcr.io --username '$GHCR_USER' --password-stdin"
+          ssh "${opts[@]}" -p "$VPS_PORT" "$target" "bash -se -- '$release' '$GITHUB_RUN_NUMBER'" <<'REMOTE'
+          set -euo pipefail
+          cd "$HOME/apps/jefrry"
+          exec 9>deploy.lock
+          flock -w 300 9
+          latest=$(cat latest-sequence 2>/dev/null || echo 0)
+          [[ $latest =~ ^[0-9]+$ ]]
+          if (( $2 < latest )); then
+            echo "Skipped stale run $2; latest accepted run is $latest"
+            exit 0
+          fi
+          export DOCKER_CONFIG="$PWD/releases/$1/.docker"
+          unset IMAGE_REF
+          next=(docker compose --project-directory "$PWD" --env-file .env --env-file "releases/$1/release.env" -f "releases/$1/compose.yaml")
+          "${next[@]}" pull site
+          printf '%s\n' "$2" > latest-sequence.tmp
+          mv latest-sequence.tmp latest-sequence
+          if ! "${next[@]}" up -d --no-build --pull never; then
+            if [[ -s compose.yaml && -s .release.env ]]; then
+              docker compose --env-file .env --env-file .release.env up -d --no-build --pull never || echo 'Rollback failed; manual recovery is required.' >&2
+            else
+              "${next[@]}" stop site || true
+            fi
+            exit 1
+          fi
+          if [[ -s compose.yaml && -s .release.env ]]; then
+            cp compose.yaml compose.yaml.previous
+            cp .release.env .release.env.previous
+          fi
+          cp "releases/$1/compose.yaml" compose.yaml
+          cp "releases/$1/release.env" .release.env
+          echo "Deployed release $1"
+          REMOTE
