@@ -1,0 +1,15 @@
+# Only build inputs enter the context; local secrets and the reference stay out.
+**
+!Dockerfile
+!Caddyfile
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!nuxt.config.ts
+!tsconfig.json
+!app/
+!app/**
+!server/
+!server/**
+!public/
+!public/**

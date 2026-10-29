@@ -3,3 +3,6 @@
 /.nuxt
 /.output
 /dist
+.env
+.env.*
+!.env.example
