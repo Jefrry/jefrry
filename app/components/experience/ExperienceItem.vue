@@ -12,7 +12,7 @@ const { text } = useLanguage();
     <div class="min-w-0">
       <h3 class="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-lg font-medium tracking-tight">{{ experience.role }} <span class="text-xs text-accent">{{ experience.company }}</span></h3>
 
-      <p class="mt-2 max-w-[695px] text-xs leading-relaxed text-muted">{{ experience.summary }}</p>
+      <p class="mt-2 max-w-[695px] whitespace-pre-line text-xs leading-relaxed text-muted">{{ experience.summary }}</p>
 
       <ul :aria-label="text.technologies" class="mt-3.5 flex flex-wrap gap-2">
         <li v-for="technology in experience.tech" :key="technology" class="rounded border border-[#3b425e] px-2 py-0.5 text-[10px] text-[#abb6d3]">{{ technology }}</li>

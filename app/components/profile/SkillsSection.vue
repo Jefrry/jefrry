@@ -4,7 +4,7 @@ const { profile, text } = useLanguage();
 
 <template>
   <section aria-labelledby="skills-title" class="pt-12 md:pt-[75px]">
-    <h2 id="skills-title" class="mb-7 text-2xl font-medium tracking-tight md:text-[26px]"><span aria-hidden="true" class="mr-3 font-mono text-[10px] text-[#95a5cd]">02</span>{{ text.skills }}</h2>
+    <h2 id="skills-title" class="mb-7 text-2xl font-medium tracking-tight md:text-[26px]">{{ text.skills }}</h2>
 
     <div class="grid gap-6 md:grid-cols-3 md:gap-10">
       <div v-for="skill in profile.skills" :key="skill.title" class="border-t border-line pt-5">

@@ -32,7 +32,5 @@ const { profile, text } = useLanguage();
     <ul :aria-label="text.mainTechnologies" class="flex flex-wrap gap-x-6 gap-y-2 text-[#c6cce0]">
       <li v-for="technology in profile.technologies" :key="technology">{{ technology }}</li>
     </ul>
-
-    <a href="#experience" class="hidden shrink-0 text-[10px] text-muted lg:block">{{ text.deeper }} &nbsp; ↓</a>
   </div>
 </template>

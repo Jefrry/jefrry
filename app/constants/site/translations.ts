@@ -15,7 +15,6 @@ interface Translation {
   authorContacts: string;
   technologies: string;
   mainTechnologies: string;
-  deeper: string;
   results: string;
   active: string;
   rare: string;
@@ -40,7 +39,6 @@ export const TRANSLATIONS: Record<Language, Translation> = {
     authorContacts: 'Контакты автора',
     technologies: 'Технологии',
     mainTechnologies: 'Основные технологии',
-    deeper: 'Глубже — интереснее',
     results: 'Результаты и полный стек',
     active: 'Активно работал: ',
     rare: 'Работал реже: ',
@@ -63,7 +61,6 @@ export const TRANSLATIONS: Record<Language, Translation> = {
     authorContacts: 'Author contacts',
     technologies: 'Technologies',
     mainTechnologies: 'Main technologies',
-    deeper: 'More beneath the surface',
     results: 'Achievements and full stack',
     active: 'Used regularly: ',
     rare: 'Used occasionally: ',

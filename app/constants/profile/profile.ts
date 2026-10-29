@@ -7,7 +7,7 @@ export const PROFILE = {
   location: 'САМАРА, РОССИЯ / УДАЛЁННО',
   introduction: 'Создаю веб-приложения — от первого интерфейса до серверной логики. Погружаюсь в задачу, нахожу суть и довожу до работающего продукта.',
   technologies: ['React', 'Vue', 'TypeScript', 'Go', 'Node.js', 'PostgreSQL'],
-  resume: { href: '/assets/egor-ilin-resume.pdf', label: 'Резюме в PDF · на русском' },
+  resume: { href: '/assets/egor-ilin-resume.pdf', label: 'Скачать резюме' },
   contacts: [
     { name: 'Telegram', label: '@Jefrry', href: 'https://t.me/Jefrry' },
     { name: 'Почта', label: 'skeetch2010@gmail.com', href: 'mailto:skeetch2010@gmail.com' },
@@ -28,7 +28,7 @@ export const PROFILES: Record<Language, Profile> = {
     location: 'SAMARA, RUSSIA / REMOTE',
     introduction: 'I build web applications — from the first interface to server-side logic. I explore the problem, find what matters and turn it into a working product.',
     technologies: PROFILE.technologies,
-    resume: { href: '/assets/egor-ilin-resume.pdf', label: 'Résumé in PDF · in Russian' },
+    resume: { href: '/assets/egor-ilin-resume.pdf', label: 'Download resume' },
     contacts: [
       { name: 'Telegram', label: '@Jefrry', href: 'https://t.me/Jefrry' },
       { name: 'Email', label: 'skeetch2010@gmail.com', href: 'mailto:skeetch2010@gmail.com' },
