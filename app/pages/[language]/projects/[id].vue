@@ -14,7 +14,7 @@ const { project, content, text, catalogLink } = usePortfolioProject();
 
       <p class="mt-6 text-lg text-muted">{{ content.description }}</p>
 
-      <img v-if="project.cover" :src="project.cover" alt="" width="800" height="480" class="mt-8 aspect-[5/3] w-full rounded-2xl border border-line object-cover">
+      <img v-if="project.cover" :src="project.cover" alt="" width="800" height="480" class="mt-8 aspect-[5/3] w-full rounded-2xl border border-line object-contain">
 
       <section class="mt-10">
         <h2 class="text-2xl font-medium">{{ text.context }}</h2>

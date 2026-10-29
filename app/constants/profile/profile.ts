@@ -6,11 +6,11 @@ export const PROFILE = {
   role: 'Fullstack developer',
   location: 'САМАРА, РОССИЯ / УДАЛЁННО',
   introduction: 'Создаю веб-приложения — от первого интерфейса до серверной логики. Погружаюсь в задачу, нахожу суть и довожу до работающего продукта.',
-  technologies: ['React', 'Vue', 'TypeScript', 'Go', 'Node.js', 'PostgreSQL'],
+  technologies: ['React', 'Vue', 'TypeScript', 'Go', 'Node.js', 'PostgreSQL', 'MongoDB'],
   resume: { href: '/assets/egor-ilin-resume.pdf', label: 'Скачать резюме' },
   contacts: [
     { name: 'Telegram', label: '@Jefrry', href: 'https://t.me/Jefrry' },
-    { name: 'Почта', label: 'skeetch2010@gmail.com', href: 'mailto:skeetch2010@gmail.com' },
+    { name: 'Почта', label: 'contact@jefrry.dev', href: 'mailto:contact@jefrry.dev' },
     { name: 'GitHub', label: 'github.com/Jefrry', href: 'https://github.com/Jefrry' },
   ],
   skills: [
@@ -31,7 +31,7 @@ export const PROFILES: Record<Language, Profile> = {
     resume: { href: '/assets/egor-ilin-resume.pdf', label: 'Download resume' },
     contacts: [
       { name: 'Telegram', label: '@Jefrry', href: 'https://t.me/Jefrry' },
-      { name: 'Email', label: 'skeetch2010@gmail.com', href: 'mailto:skeetch2010@gmail.com' },
+      { name: 'Email', label: 'contact@jefrry.dev', href: 'mailto:contact@jefrry.dev' },
       { name: 'GitHub', label: 'github.com/Jefrry', href: 'https://github.com/Jefrry' },
     ],
     skills: [

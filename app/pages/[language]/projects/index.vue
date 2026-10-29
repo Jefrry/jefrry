@@ -21,7 +21,7 @@ const { text, categories, category, projects, selectCategory, resetFilters } = u
     <div v-if="projects.length" class="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       <article v-for="project in projects" :key="project.id" class="overflow-hidden rounded-2xl border border-line bg-ocean">
         <NuxtLink :to="project.to" class="group flex h-full flex-col">
-          <img v-if="project.cover" :src="project.cover" alt="" width="800" height="480" class="aspect-[5/3] w-full object-cover" loading="lazy">
+          <img v-if="project.cover" :src="project.cover" alt="" width="800" height="480" class="aspect-[5/3] w-full object-contain" loading="lazy">
 
           <div class="flex grow flex-col p-6">
             <h2 class="text-xl font-medium group-hover:text-accent">{{ project.content.title }}</h2>

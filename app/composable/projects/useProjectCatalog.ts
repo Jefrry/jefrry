@@ -10,6 +10,7 @@ export function useProjectCatalog() {
   const category = computed(() => categories.find(value => value === route.query.category) ?? 'all');
   const projects = computed(() => PROJECTS
     .filter(project => category.value === 'all' || project.category === category.value)
+    .reverse()
     .map(project => ({
       ...project,
       content: project.content[language.value],
