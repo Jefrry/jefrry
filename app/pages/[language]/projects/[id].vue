@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ validate: validateProjectRoute });
 const { project, content, text, catalogLink } = usePortfolioProject();
+const { trackProjectSource } = useAnalytics();
 </script>
 
 <template>
@@ -8,7 +9,7 @@ const { project, content, text, catalogLink } = usePortfolioProject();
     <NuxtLink :to="catalogLink" class="text-sm text-accent">{{ text.back }}</NuxtLink>
 
     <article class="mt-8 max-w-4xl">
-      <p class="text-sm text-cyan">{{ text.categories[project.category] }}</p>
+      <p v-if="project.category" class="text-sm text-cyan">{{ text.categories[project.category] }}</p>
 
       <h1 class="mt-3 text-3xl font-medium tracking-tight sm:text-5xl">{{ content.title }}</h1>
 
@@ -40,7 +41,7 @@ const { project, content, text, catalogLink } = usePortfolioProject();
 
       <p v-if="content.period" class="mt-8 text-sm text-muted">{{ text.period }}: {{ content.period }}</p>
 
-      <a v-if="project.externalUrl" :href="project.externalUrl" class="mt-8 inline-block rounded border border-accent px-5 py-3 text-accent">{{ text.external }}</a>
+      <a v-if="project.externalUrl" :href="project.externalUrl" class="mt-8 inline-block rounded border border-accent px-5 py-3 text-accent" @click="trackProjectSource(project.id, project.externalUrl)">{{ text.external }}</a>
     </article>
   </main>
 </template>

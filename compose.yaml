@@ -5,6 +5,8 @@ services:
     image: ${IMAGE_REF:-${SITE_IMAGE:-jefrry-portfolio:local}}
     build:
       context: .
+      args:
+        NUXT_PUBLIC_YANDEX_METRICA_ID: ${NUXT_PUBLIC_YANDEX_METRICA_ID:-}
     restart: unless-stopped
     environment:
       SITE_ADDRESS: ${SITE_ADDRESS:-jefrry.dev}

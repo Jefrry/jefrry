@@ -2,6 +2,7 @@
 import WhaleVisual from '../site/WhaleVisual.vue';
 
 const { profile, text } = useLanguage();
+const { trackContact } = useAnalytics();
 </script>
 
 <template>
@@ -19,7 +20,7 @@ const { profile, text } = useLanguage();
       <p class="mb-7 max-w-[425px] text-sm leading-[1.9] text-muted">{{ profile.introduction }}</p>
 
       <div :aria-label="text.authorContacts" class="flex flex-wrap gap-x-6 gap-y-3 text-xs text-[#c1cbe4]">
-        <a v-for="contact in profile.contacts" :key="contact.href" :href="contact.href" class="inline-flex items-center gap-2" :aria-label="contact.href.startsWith('mailto:') ? `${contact.name}: ${contact.label}` : contact.name">
+        <a v-for="contact in profile.contacts" :key="contact.href" :href="contact.href" class="inline-flex items-center gap-2" :aria-label="contact.href.startsWith('mailto:') ? `${contact.name}: ${contact.label}` : contact.name" @click="trackContact(contact.href, 'hero')">
           {{ contact.href.startsWith('mailto:') ? contact.label : contact.name }} <span aria-hidden="true" class="text-accent">↗</span>
         </a>
       </div>

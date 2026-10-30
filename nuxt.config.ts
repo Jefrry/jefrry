@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       pages.push(...ARTICLE_ROUTES);
     },
   },
-  runtimeConfig: { publishedPages },
+  runtimeConfig: { publishedPages, public: { yandexMetricaId: '' } },
   nitro: { prerender: { routes: [...publishedPages, '/sitemap.xml', '/robots.txt'] } },
   app: {
     head: {

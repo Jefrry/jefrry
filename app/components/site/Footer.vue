@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { profile, text, homePath } = useLanguage();
+const { trackContact } = useAnalytics();
 </script>
 
 <template>
@@ -7,7 +8,7 @@ const { profile, text, homePath } = useLanguage();
     <h2 class="mb-6 text-2xl font-medium tracking-tight md:text-[26px]">{{ text.contacts }}</h2>
 
     <div class="grid gap-5 md:grid-cols-3 md:gap-8">
-      <a v-for="contact in profile.contacts" :key="contact.href" :href="contact.href" class="flex min-w-0 flex-col border-b border-line pb-4">
+      <a v-for="contact in profile.contacts" :key="contact.href" :href="contact.href" class="flex min-w-0 flex-col border-b border-line pb-4" @click="trackContact(contact.href, 'footer')">
         <span class="mb-2 text-[9px] uppercase tracking-widest text-muted">{{ contact.name }}</span>
 
         <span class="break-words text-sm">{{ contact.label }} <span aria-hidden="true">↗</span></span>
