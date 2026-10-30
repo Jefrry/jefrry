@@ -4,6 +4,7 @@ export type ProjectCategory = 'fullstack' | 'frontend' | 'personal';
 
 export interface ProjectContent {
   title: string;
+  coverAlt?: string;
   summary: string;
   description: string;
   context: string;
@@ -11,11 +12,20 @@ export interface ProjectContent {
   period?: string;
 }
 
-export interface PortfolioProject {
+interface PortfolioProjectBase {
   id: string;
-  category: ProjectCategory;
+  category?: ProjectCategory;
   technologies: string[];
-  cover?: string;
   externalUrl?: string;
-  content: Record<Language, ProjectContent>;
 }
+
+export type PortfolioProject = PortfolioProjectBase & (
+  | {
+    cover: string;
+    content: Record<Language, ProjectContent & { coverAlt: string }>;
+  }
+  | {
+    cover?: never;
+    content: Record<Language, ProjectContent>;
+  }
+);

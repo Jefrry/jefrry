@@ -5,7 +5,7 @@ export const PROFILE = {
   name: 'Егор Ильин',
   role: 'Fullstack developer',
   location: 'САМАРА, РОССИЯ / УДАЛЁННО',
-  introduction: 'Создаю веб-приложения — от первого интерфейса до серверной логики. Погружаюсь в задачу, нахожу суть и довожу до работающего продукта.',
+  introduction: 'Разработчик веб-приложений для B2B и B2C. Создаю пользовательские интерфейсы на React, Vue и TypeScript, разрабатываю серверную логику на Go и Node.js. Запускаю продукты с нуля и развиваю высоконагруженные сервисы. ',
   technologies: ['React', 'Vue', 'TypeScript', 'Go', 'Node.js', 'PostgreSQL', 'MongoDB'],
   resume: { href: '/assets/egor-ilin-resume.pdf', label: 'Скачать резюме' },
   contacts: [
@@ -26,7 +26,7 @@ export const PROFILES: Record<Language, Profile> = {
     name: 'Egor Ilin',
     role: 'Fullstack developer',
     location: 'SAMARA, RUSSIA / REMOTE',
-    introduction: 'I build web applications — from the first interface to server-side logic. I explore the problem, find what matters and turn it into a working product.',
+    introduction: 'Web developer building B2B and B2C applications. I create user interfaces with React, Vue, and TypeScript and develop backend logic with Go and Node.js. I build products from scratch and develop high-load services.',
     technologies: PROFILE.technologies,
     resume: { href: '/assets/egor-ilin-resume.pdf', label: 'Download resume' },
     contacts: [

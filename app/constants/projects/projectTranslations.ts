@@ -3,7 +3,7 @@ export const PROJECT_TEXT = {
     title: 'Проекты портфолио', intro: 'Мои проекты: описание, стек технологий и ссылки на исходный код.',
     categories: { all: 'Все проекты', fullstack: 'Fullstack', frontend: 'Frontend', personal: 'Учебные и личные' },
     filter: 'Категория проекта', empty: 'В этой категории пока нет проектов. Сбросьте фильтры, чтобы увидеть все проекты.',
-    reset: 'Сбросить фильтры', count: 'Найдено проектов:', details: 'Подробнее', back: '← В каталог проектов', context: 'Контекст и задача', stack: 'Стек', results: 'Возможности проекта', period: 'Период', external: 'Открыть проект ↗',
+    reset: 'Сбросить фильтры', count: 'Найдено проектов:', details: 'Подробнее', back: '← Все проекты', context: 'Контекст и задача', stack: 'Стек', results: 'Возможности проекта', period: 'Период', external: 'Открыть проект ↗',
   },
   en: {
     title: 'Portfolio projects', intro: 'My projects: descriptions, technology stacks and links to source code.',
