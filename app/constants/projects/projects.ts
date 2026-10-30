@@ -61,7 +61,7 @@ export const PROJECTS: PortfolioProject[] = [
     id: 'typing-cat-obsidian',
     technologies: ['Obsidian', 'TypeScript', 'esbuild'],
     cover: '/assets/projects/typing-cat-obsidian.png',
-    externalUrl: 'https://github.com/Jefrry/obsidian-typing-cat',
+    externalUrl: 'https://community.obsidian.md/plugins/typing-cat',
     content: {
       ru: {
         title: 'Typing Cat — плагин для Obsidian с печатающим котом',
@@ -100,10 +100,9 @@ export const PROJECTS: PortfolioProject[] = [
     },
   },
   {
-    // Source: https://github.com/Jefrry/obsidian-em-dash-replace/blob/main/README.md
     id: 'em-dash-replace-obsidian',
     technologies: ['Obsidian', 'TypeScript', 'esbuild'],
-    externalUrl: 'https://github.com/Jefrry/obsidian-em-dash-replace',
+    externalUrl: 'https://community.obsidian.md/plugins/em-dash-replace',
     content: {
       ru: {
         title: 'Em Dash Replace — плагин для замены дефисов в Obsidian',
